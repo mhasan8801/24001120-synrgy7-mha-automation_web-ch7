@@ -45,7 +45,6 @@ public class LoginPage {
 
     public void verifyLoginFailed(){
         var errorMessage = errorMessageLoginFailed.getText();
-        System.out.println(errorMessage);
         Assert.assertEquals("Epic sadface: Username and password do not match any user in this service",errorMessage);
     }
 

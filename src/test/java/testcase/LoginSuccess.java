@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import page.LoginPage;
 import page.ProductPage;
 
+import java.time.Duration;
+
 public class LoginSuccess {
 
     WebDriver driver;
@@ -20,10 +22,12 @@ public class LoginSuccess {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
-    public void test_simple(){
+    public void loginSuccess(){
+
         LoginPage loginPage = new LoginPage(driver);
         ProductPage productPage = new ProductPage(driver);
 
@@ -31,7 +35,9 @@ public class LoginSuccess {
         loginPage.inputUsername("standard_user");
         loginPage.inputPassword("secret_sauce");
         loginPage.clickLoginButton();
+
         productPage.verifyLoginSuccess();
+
     }
 
     @AfterTest

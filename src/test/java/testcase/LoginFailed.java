@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import page.LoginPage;
 
+import java.time.Duration;
+
 public class LoginFailed {
 
     WebDriver driver;
@@ -19,17 +21,20 @@ public class LoginFailed {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
-    public void test_simple(){
+    public void loginFailed(){
+
         LoginPage loginPage = new LoginPage(driver);
 
         loginPage.openLoginPage();
-        loginPage.inputUsername("standard_user");
-        loginPage.inputPassword("secret_sauce123");
+        loginPage.inputUsername("username_salah");
+        loginPage.inputPassword("password_salah");
         loginPage.clickLoginButton();
         loginPage.verifyLoginFailed();
+
     }
 
     @AfterTest

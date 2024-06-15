@@ -12,6 +12,8 @@ import page.CheckoutPage;
 import page.LoginPage;
 import page.ProductPage;
 
+import java.time.Duration;
+
 public class Checkout {
 
     WebDriver driver;
@@ -22,13 +24,15 @@ public class Checkout {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
-    public void test_simple(){
+    public void checkout()  {
+
         LoginPage loginPage = new LoginPage(driver);
         ProductPage productPage = new ProductPage(driver);
-        CheckoutPage checkoutPage = new CheckoutPage(driver);
+        CheckoutPage checkoutPage = new CheckoutPage(driver,productPage);
 
         loginPage.openLoginPage();
         loginPage.inputUsername("standard_user");
@@ -50,6 +54,8 @@ public class Checkout {
         checkoutPage.inputZipPostalCode("1234");
         checkoutPage.clickContinueButton();
         checkoutPage.verifyListProductDisplayedOnCart();
+        checkoutPage.verifySubTotal();
+        checkoutPage.verifyTotal();
         checkoutPage.clickFinishButton();
         checkoutPage.verifyCheckoutComplete();
 
